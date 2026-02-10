@@ -99,6 +99,25 @@ class FilterTest {
 
     @ParameterizedTest
     @CsvSource(value = [
+        "[1:0, 2:1, 3:1, 4:2, 6:2, 7:3, 8:3, 5:1, 9:2, 10:3, 11:2]" + "|" +
+        "[1:0, 2:1,                          5:1, 9:2, 10:3, 11:2]",
+
+    ], delimiter = '|')
+    @DisplayName("Parent of leaf node removed, leaf is also removed")
+    fun testFilterThreeNodesDepth1MiddleOneRemoved(input: String, expectedString: String) {
+        // Arrange
+        val inputTree: Hierarchy = toHierarchy(input)
+        val expected: Hierarchy = toHierarchy(expectedString)
+
+        // Act
+        val filteredActual: Hierarchy = inputTree.filter { nodeId -> nodeId != 3 }
+
+        // Assert
+        assertEquals(expected.formatString(), filteredActual.formatString())
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = [
         "[1:0, 2:1, 3:2, 4:3, 5:1, 6:0, 7:1, 8:0, 9:1, 10:1, 11:2]" + "|" +
         "[]",
 
