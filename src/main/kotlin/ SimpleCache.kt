@@ -1,0 +1,3 @@
+class SimpleCache<K, V> {
+
+}
